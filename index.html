@@ -287,6 +287,59 @@
     color:var(--red);line-height:1.5;margin:16px 0;
   }
 
+  /* UNCLEAR PHOTO */
+  .unclear-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--red-soft);color:var(--red);
+    font-size:12.5px;font-weight:700;padding:8px 13px;border-radius:20px;
+    margin:16px 0 10px;
+  }
+  .unclear-reason{font-size:13.5px;color:var(--slate);line-height:1.55;margin-bottom:18px;}
+  .tip-row{
+    display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ink);
+    line-height:1.5;padding:8px 0;
+  }
+  .tip-dot{
+    width:6px;height:6px;border-radius:50%;background:var(--sage);
+    margin-top:6px;flex-shrink:0;
+  }
+
+  /* HISTORY */
+  .icon-btn{
+    width:36px;height:36px;border-radius:50%;border:1.5px solid var(--paper-line);
+    background:var(--card);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;flex-shrink:0;
+  }
+  .history-empty{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    margin-top:60px;padding:0 10px;
+  }
+  .history-empty .upload-icon{background:var(--red-soft);}
+  .history-empty .upload-title{margin-top:2px;}
+  .history-empty .upload-hint{max-width:32ch;}
+  .history-item{
+    background:var(--card);border:1px solid var(--paper-line);border-radius:14px;
+    padding:12px;margin-bottom:11px;display:flex;gap:12px;align-items:center;cursor:pointer;
+  }
+  .history-item:active{transform:scale(.99);}
+  .history-thumb{
+    width:56px;height:56px;border-radius:9px;object-fit:cover;flex-shrink:0;
+    background:#EFEAE0;
+  }
+  .history-info{flex:1;min-width:0;}
+  .history-subject{font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:3px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .history-meta{font-size:11.5px;color:var(--slate);display:flex;align-items:center;gap:6px;}
+  .history-badge{
+    font-family:'IBM Plex Mono';font-size:10px;background:var(--red-soft);color:var(--red);
+    padding:2px 7px;border-radius:20px;flex-shrink:0;
+  }
+  .history-chevron{flex-shrink:0;color:var(--slate);}
+  .clear-history-btn{
+    background:none;border:none;color:var(--red);font-family:'Inter';font-size:12.5px;
+    font-weight:600;cursor:pointer;padding:8px 0;margin-top:6px;text-align:center;
+  }
+
   ::selection{background:var(--red-soft);}
 </style>
 </head>
@@ -300,6 +353,9 @@
         <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         conceptra
       </div>
+      <button class="icon-btn" onclick="goTo('history'); renderHistory();" aria-label="View history">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#262357" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#262357" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </header>
 
     <div class="home-hero">
@@ -421,12 +477,222 @@
     </div>
   </section>
 
+  <!-- UNCLEAR PHOTO -->
+  <section class="screen" id="screen-unclear">
+    <header class="top">
+      <button class="backbtn" onclick="goTo('upload')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
+    </header>
+
+    <div class="scan-stage" style="justify-content:flex-start;padding-top:10px;">
+      <div class="result-thumb" style="width:100%;">
+        <img id="unclearImg" src="" alt="unclear photo">
+      </div>
+
+      <div class="unclear-badge">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#B8402A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Handwriting is hard to read
+      </div>
+
+      <div class="unclear-reason" id="unclearReason">—</div>
+
+      <div class="field-label" style="margin-top:6px;">Tips for a clearer scan</div>
+      <div class="tip-row"><span class="tip-dot"></span>Use bright, even light — avoid shadows falling across the page</div>
+      <div class="tip-row"><span class="tip-dot"></span>Hold the camera directly above the page, not at an angle</div>
+      <div class="tip-row"><span class="tip-dot"></span>Fill the frame with just the page — get close, avoid blur</div>
+      <div class="tip-row"><span class="tip-dot"></span>Make sure all writing is in focus before capturing</div>
+
+      <div class="result-actions" style="margin-top:26px;">
+        <button class="cta-primary" onclick="goTo('upload'); resetUpload();">Try another photo</button>
+        <button class="cta-secondary" onclick="goTo('home')">Back to home</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section class="screen" id="screen-history">
+    <header class="top">
+      <button class="backbtn" onclick="goTo('home')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
+    </header>
+
+    <div class="field-label" style="margin-top:4px;">Past scans</div>
+    <div id="historyList"></div>
+    <button class="clear-history-btn" id="clearHistoryBtn" onclick="clearHistory()">Clear history</button>
+  </section>
+
+  <!-- HISTORY DETAIL (reuses results layout) -->
+  <section class="screen" id="screen-history-detail">
+    <header class="top">
+      <button class="backbtn" onclick="goTo('history')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        History
+      </button>
+      <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
+    </header>
+
+    <div class="result-thumb"><img id="hdResultImg" src="" alt="past scan"></div>
+
+    <div class="summary-card">
+      <div class="summary-eyebrow" id="hdDate">—</div>
+      <div class="summary-text" id="hdSummaryText">—</div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" id="hdStatGaps">0</div><div class="stat-label">Gaps found</div></div>
+      <div class="stat-box"><div class="stat-num" id="hdStatStrengths">0</div><div class="stat-label">Strengths</div></div>
+    </div>
+
+    <div class="section-title"><span class="sw"></span>Concept gaps</div>
+    <div id="hdGapsList"></div>
+
+    <div class="section-title sage"><span class="sw"></span>What's working</div>
+    <div id="hdStrengthsList"></div>
+
+    <div class="result-actions">
+      <button class="cta-primary" onclick="goTo('upload'); resetUpload();">Diagnose another test</button>
+      <button class="cta-secondary" onclick="goTo('history')">Back to history</button>
+    </div>
+  </section>
+
 </div>
 
 <script>
 let uploadedBase64 = null;
 let uploadedMediaType = null;
 let uploadedDataUrl = null;
+
+const HISTORY_KEY = 'conceptra_history_v1';
+const MAX_HISTORY = 30;
+
+function loadHistory(){
+  try{
+    const raw = localStorage.getItem(HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch(e){
+    return [];
+  }
+}
+
+function saveHistoryEntry(entry){
+  try{
+    let history = loadHistory();
+    history.unshift(entry);
+    if(history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  }catch(e){
+    console.warn('Could not save to history (storage may be full or unavailable):', e);
+  }
+}
+
+function clearHistory(){
+  if(!confirm('Clear all past scan history? This can\'t be undone.')) return;
+  try{ localStorage.removeItem(HISTORY_KEY); }catch(e){}
+  renderHistory();
+}
+
+// Downscales an image data URL to a small JPEG thumbnail so history entries stay light in storage.
+function makeThumbnail(dataUrl, maxDim){
+  return new Promise((resolve)=>{
+    const img = new Image();
+    img.onload = function(){
+      let w = img.width, h = img.height;
+      if(w > h && w > maxDim){ h = Math.round(h * (maxDim / w)); w = maxDim; }
+      else if(h >= w && h > maxDim){ w = Math.round(w * (maxDim / h)); h = maxDim; }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/jpeg', 0.6));
+    };
+    img.onerror = function(){ resolve(dataUrl); };
+    img.src = dataUrl;
+  });
+}
+
+function formatHistoryDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined, { month:'short', day:'numeric' }) + ' · ' +
+    d.toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
+}
+
+function renderHistory(){
+  const list = document.getElementById('historyList');
+  const clearBtn = document.getElementById('clearHistoryBtn');
+  const history = loadHistory();
+
+  if(history.length === 0){
+    clearBtn.style.display = 'none';
+    list.innerHTML = `
+      <div class="history-empty">
+        <div class="upload-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#B8402A" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#B8402A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="upload-title">No scans yet</div>
+        <div class="upload-hint">Every test you diagnose will show up here, so you can track your gaps over time.</div>
+      </div>`;
+    return;
+  }
+
+  clearBtn.style.display = 'block';
+  list.innerHTML = history.map((h, i) => `
+    <div class="history-item" onclick="openHistoryEntry(${i})">
+      <img class="history-thumb" src="${h.thumbnail}" alt="scan thumbnail">
+      <div class="history-info">
+        <div class="history-subject">${escapeHtml(h.subject || 'Untitled scan')}</div>
+        <div class="history-meta">
+          <span>${formatHistoryDate(h.date)}</span>
+          <span class="history-badge">${h.gapsCount} gap${h.gapsCount === 1 ? '' : 's'}</span>
+        </div>
+      </div>
+      <svg class="history-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  `).join('');
+}
+
+function openHistoryEntry(index){
+  const history = loadHistory();
+  const h = history[index];
+  if(!h) return;
+
+  document.getElementById('hdResultImg').src = h.thumbnail;
+  document.getElementById('hdDate').textContent = formatHistoryDate(h.date) + (h.subject ? ' · ' + h.subject : '');
+  document.getElementById('hdSummaryText').textContent = h.overallSummary || '—';
+  document.getElementById('hdStatGaps').textContent = h.gaps.length;
+  document.getElementById('hdStatStrengths').textContent = h.strengths.length;
+
+  const gapsList = document.getElementById('hdGapsList');
+  gapsList.innerHTML = h.gaps.length === 0
+    ? `<div class="strength-card">No concept gaps were recorded for this scan.</div>`
+    : h.gaps.map(g => `
+      <div class="gap-card">
+        <div class="gap-top">
+          <div class="gap-concept">${escapeHtml(g.concept || '')}</div>
+          <div class="sev-badge sev-${(g.severity||'medium').toLowerCase()}">${(g.severity||'medium')}</div>
+        </div>
+        <div class="gap-mistake">${escapeHtml(g.mistake || '')}</div>
+        <div class="gap-why">${escapeHtml(g.whyItHappened || '')}</div>
+        <div class="gap-fix"><b>Do this →</b> ${escapeHtml(g.recommendation || '')}</div>
+      </div>
+    `).join('');
+
+  const strengthsList = document.getElementById('hdStrengthsList');
+  strengthsList.innerHTML = h.strengths.length === 0
+    ? `<div class="strength-card">No strengths were recorded for this scan.</div>`
+    : h.strengths.map(s => `
+      <div class="strength-card">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#5C8A6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>${escapeHtml(s)}</span>
+      </div>
+    `).join('');
+
+  goTo('history-detail');
+}
 
 function goTo(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -456,12 +722,37 @@ function resetUpload(){
   document.getElementById('uploadError').innerHTML = '';
 }
 
+// Resizes/compresses an uploaded photo to a safe size for the analysis
+// request (Netlify functions reject payloads over ~6MB). Keeps the image
+// large enough to stay readable while avoiding oversized uploads.
+function compressImage(dataUrl, maxDim, quality){
+  return new Promise((resolve)=>{
+    const img = new Image();
+    img.onload = function(){
+      let w = img.width, h = img.height;
+      if(w > maxDim || h > maxDim){
+        if(w >= h){ h = Math.round(h * (maxDim / w)); w = maxDim; }
+        else{ w = Math.round(w * (maxDim / h)); h = maxDim; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = function(){ resolve(dataUrl); };
+    img.src = dataUrl;
+  });
+}
+
 function handleFile(file){
   if(!file) return;
   const reader = new FileReader();
-  reader.onload = function(e){
-    uploadedDataUrl = e.target.result;
-    uploadedMediaType = file.type || 'image/jpeg';
+  reader.onload = async function(e){
+    const rawDataUrl = e.target.result;
+    // Compress to keep the upload well under Netlify's function size limit
+    // while keeping handwriting legible (1600px max side, decent JPEG quality).
+    uploadedDataUrl = await compressImage(rawDataUrl, 1600, 0.82);
+    uploadedMediaType = 'image/jpeg';
     uploadedBase64 = uploadedDataUrl.split(',')[1];
     const zone = document.getElementById('uploadZone');
     zone.classList.add('has-image');
@@ -506,9 +797,29 @@ async function startScan(){
     const subject = document.getElementById('subjectInput').value.trim();
     const result = await analyzeWithClaude(uploadedBase64, uploadedMediaType, subject);
     clearInterval(interval);
+    const quality = result.imageQuality || { readable: true, issue: '' };
+    if(quality.readable === false){
+      document.getElementById('unclearImg').src = uploadedDataUrl;
+      document.getElementById('unclearReason').textContent = quality.issue || "We couldn't confidently read the handwriting in this photo.";
+      goTo('unclear');
+      return;
+    }
     renderResults(result);
     document.getElementById('resultImg').src = uploadedDataUrl;
     goTo('results');
+
+    // Save to history (fire-and-forget; doesn't block navigation)
+    makeThumbnail(uploadedDataUrl, 400).then(thumb => {
+      saveHistoryEntry({
+        date: new Date().toISOString(),
+        subject: subject,
+        thumbnail: thumb,
+        overallSummary: result.overallSummary || '',
+        gaps: result.gaps || [],
+        strengths: result.strengths || [],
+        gapsCount: (result.gaps || []).length
+      });
+    });
   }catch(err){
     clearInterval(interval);
     console.error(err);
@@ -519,61 +830,22 @@ async function startScan(){
 }
 
 async function analyzeWithClaude(base64, mediaType, subject){
-  const subjectLine = subject ? `The student says this is: ${subject}.` : '';
-  const systemPrompt = `You are Conceptra, an expert, encouraging tutor who diagnoses learning gaps from a photo of a student's test, worksheet, or homework page.
-
-Look at every question and answer visible in the image. For each mistake, identify the underlying CONCEPT the student is weak in (not just "got question 3 wrong" but the actual skill/idea behind it, e.g. "distributing a negative sign across parentheses"). Group related mistakes into the same concept gap rather than listing every single question separately. Keep language simple, plain, and encouraging — written for the student to read directly, not a teacher's report.
-
-${subjectLine}
-
-Respond with ONLY valid JSON, no markdown fences, no commentary, matching exactly this shape:
-{
-  "overallSummary": "one or two encouraging sentences, in second person, summarizing the big picture",
-  "gaps": [
-    {
-      "concept": "short concept name, e.g. 'Solving linear equations with negative coefficients'",
-      "mistake": "one plain sentence describing what the student actually did wrong, referencing the specific question if possible",
-      "whyItHappened": "one short sentence on the likely root cause of the error",
-      "recommendation": "one concrete, specific, actionable thing the student should do to fix this gap (a practice type, a rule to memorize, a habit to build)",
-      "severity": "high, medium, or low"
-    }
-  ],
-  "strengths": ["short phrase describing something the student clearly did well, plain and specific"]
-}
-
-Include 2 to 5 gaps ordered by severity (high first), and 1 to 3 strengths. If the image is unclear or contains no gradeable academic work, return gaps as an empty array and explain that in overallSummary instead.`;
-
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
+  const response = await fetch("/.netlify/functions/analyze", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1500,
-      system: systemPrompt,
-      messages: [
-        {
-          role: "user",
-          content: [
-            { type: "image", source: { type: "base64", media_type: mediaType, data: base64 } },
-            { type: "text", text: "Analyze this test/homework photo and return the JSON diagnosis." }
-          ]
-        }
-      ]
-    })
+    body: JSON.stringify({ base64, mediaType, subject })
   });
 
-  if(!response.ok){
-    throw new Error("Analysis request failed");
-  }
-  const data = await response.json();
-  const textBlock = (data.content || []).find(b => b.type === 'text');
-  if(!textBlock) throw new Error("No response from analyzer");
-  let clean = textBlock.text.trim().replace(/^```json/i,'').replace(/^```/,'').replace(/```$/,'').trim();
+  const raw = await response.text();
   let parsed;
   try{
-    parsed = JSON.parse(clean);
+    parsed = JSON.parse(raw);
   }catch(e){
-    throw new Error("Couldn't read the diagnosis");
+    throw new Error("Server returned an unreadable response");
+  }
+
+  if(!response.ok){
+    throw new Error(parsed.error || "Analysis request failed");
   }
   return parsed;
 }
