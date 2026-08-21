@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Conceptra — find the gap, fix the gap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F2EA;
+    --paper-line:#DCD5C3;
+    --ink:#211F3B;
+    --indigo:#262357;
+    --indigo-deep:#181633;
+    --slate:#6E6C87;
+    --red:#B8402A;
+    --red-soft:#F1DCD3;
+    --sage:#5C8A6B;
+    --sage-soft:#DCE7DD;
+    --amber:#C08A2E;
+    --amber-soft:#F1E4C9;
+    --card:#FFFDF8;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--indigo-deep);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    -webkit-tap-highlight-color:transparent;
+  }
+  #app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    background:var(--paper);
+    position:relative;
+    overflow-x:hidden;
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size: 100% 34px;
+    background-position: 0 96px;
+  }
+  .screen{
+    display:none;
+    min-height:100vh;
+    padding:0 22px 40px;
+    animation:fadeIn .35s ease;
+  }
+  .screen.active{display:flex;flex-direction:column;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* Header */
+  header.top{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 0 14px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:9px;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:21px;
+    color:var(--indigo);
+  }
+  .brand .mark{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--indigo);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .brand .mark svg{width:14px;height:14px;}
+  .backbtn{
+    background:none;border:none;color:var(--slate);
+    font-family:'Inter';font-size:14px;font-weight:500;
+    cursor:pointer;padding:8px 4px;display:flex;align-items:center;gap:5px;
+  }
+
+  /* HOME */
+  .home-hero{margin-top:6px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--red);font-weight:500;
+  }
+  h1.hero-title{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:34px;
+    line-height:1.12;
+    margin:10px 0 14px;
+    color:var(--indigo-deep);
+  }
+  h1.hero-title em{
+    font-style:italic;font-weight:500;color:var(--red);
+  }
+  .hero-sub{
+    font-size:15px;line-height:1.55;color:var(--slate);
+    margin-bottom:26px;max-width:38ch;
+  }
+
+  .paper-mock{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    padding:20px 20px 18px;
+    box-shadow:0 14px 30px -18px rgba(24,22,51,.35);
+    margin-bottom:28px;
+  }
+  .paper-mock .q{
+    font-size:13px;color:var(--ink);margin-bottom:10px;line-height:1.5;
+  }
+  .paper-mock .q b{font-weight:600;}
+  .strike{position:relative;display:inline-block;}
+  .strike svg{position:absolute;left:-3px;top:-6px;width:calc(100% + 6px);height:calc(100% + 12px);pointer-events:none;}
+  .mock-tag{
+    position:absolute;right:16px;top:16px;
+    font-family:'IBM Plex Mono';font-size:10px;color:var(--red);
+    background:var(--red-soft);padding:4px 8px;border-radius:20px;
+    display:flex;align-items:center;gap:5px;
+  }
+  .mock-tag::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red);}
+
+  .cta-primary{
+    background:var(--indigo-deep);
+    color:#F5F2EA;
+    border:none;
+    border-radius:14px;
+    padding:16px 20px;
+    font-family:'Inter';font-weight:600;font-size:15.5px;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    cursor:pointer;
+    box-shadow:0 10px 24px -12px rgba(24,22,51,.55);
+  }
+  .cta-primary:active{transform:scale(.98);}
+  .cta-secondary{
+    background:transparent;
+    color:var(--indigo);
+    border:1.5px solid var(--paper-line);
+    border-radius:14px;
+    padding:14px 20px;
+    font-family:'Inter';font-weight:600;font-size:14.5px;
+    margin-top:12px;
+    cursor:pointer;
+  }
+  .how-it-works{margin-top:auto;padding-top:22px;}
+  .how-row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--paper-line);}
+  .how-row:first-child{border-top:none;}
+  .how-num{
+    font-family:'IBM Plex Mono';font-size:11px;color:var(--slate);
+    width:20px;flex-shrink:0;padding-top:1px;
+  }
+  .how-text b{display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+  .how-text span{font-size:12.5px;color:var(--slate);line-height:1.4;}
+
+  /* UPLOAD */
+  .upload-zone{
+    border:1.5px dashed #C9C0A9;
+    border-radius:var(--radius);
+    background:var(--card);
+    padding:30px 20px;
+    text-align:center;
+    margin-top:8px;
+    position:relative;
+  }
+  .upload-zone.has-image{padding:16px;}
+  .upload-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:var(--sage-soft);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 16px;
+  }
+  .upload-title{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin-bottom:6px;}
+  .upload-hint{font-size:12.5px;color:var(--slate);margin-bottom:18px;line-height:1.5;}
+  .upload-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .chip-btn{
+    background:var(--indigo-deep);color:#F5F2EA;border:none;border-radius:11px;
+    padding:11px 16px;font-size:13.5px;font-weight:600;font-family:'Inter';
+    display:flex;align-items:center;gap:7px;cursor:pointer;
+  }
+  .chip-btn.ghost{background:transparent;color:var(--indigo);border:1.5px solid var(--paper-line);}
+  #fileInput,#cameraInput{display:none;}
+
+  .preview-wrap{position:relative;border-radius:12px;overflow:hidden;}
+  .preview-wrap img{width:100%;display:block;max-height:340px;object-fit:contain;background:#EFEAE0;}
+  .swap-btn{
+    position:absolute;top:10px;right:10px;background:rgba(24,22,51,.75);
+    color:#fff;border:none;border-radius:20px;padding:7px 12px;font-size:11.5px;
+    font-family:'Inter';font-weight:600;cursor:pointer;
+  }
+
+  .field-label{font-size:12px;font-weight:600;color:var(--slate);margin:22px 0 8px;text-transform:uppercase;letter-spacing:.05em;}
+  .subject-input{
+    width:100%;padding:13px 14px;border-radius:11px;border:1.5px solid var(--paper-line);
+    background:var(--card);font-family:'Inter';font-size:14.5px;color:var(--ink);
+  }
+  .subject-input:focus{outline:none;border-color:var(--indigo);}
+  .analyze-row{margin-top:24px;}
+  .disclaimer{font-size:11px;color:var(--slate);text-align:center;margin-top:12px;line-height:1.5;}
+
+  /* SCANNING */
+  .scan-stage{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    flex:1;padding-top:20px;
+  }
+  .scan-frame{
+    position:relative;width:100%;max-width:280px;border-radius:16px;overflow:hidden;
+    box-shadow:0 20px 40px -20px rgba(24,22,51,.5);margin-bottom:30px;
+  }
+  .scan-frame img{width:100%;display:block;}
+  .scan-line{
+    position:absolute;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--red) 20%,var(--red) 80%,transparent);
+    box-shadow:0 0 12px 2px rgba(184,64,42,.6);
+    animation:scanmove 1.8s ease-in-out infinite;
+  }
+  @keyframes scanmove{0%{top:4%}50%{top:94%}100%{top:4%}}
+  .scan-status{font-family:'IBM Plex Mono';font-size:12.5px;color:var(--indigo);letter-spacing:.03em;
+    display:flex;align-items:center;gap:8px;}
+  .dot-pulse{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1s infinite ease-in-out;}
+  @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+  /* RESULTS */
+  .result-thumb{
+    border-radius:14px;overflow:hidden;border:1px solid var(--paper-line);margin:6px 0 18px;
+    background:var(--card);
+  }
+  .result-thumb img{width:100%;display:block;max-height:220px;object-fit:cover;}
+
+  .summary-card{
+    background:var(--indigo-deep);color:#F5F2EA;border-radius:var(--radius);
+    padding:20px;margin-bottom:8px;
+  }
+  .summary-eyebrow{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#B8B3E0;margin-bottom:8px;}
+  .summary-text{font-family:'Fraunces',serif;font-size:17px;line-height:1.45;font-weight:500;font-style:italic;}
+
+  .stat-row{display:flex;gap:10px;margin:18px 0;}
+  .stat-box{flex:1;background:var(--card);border:1px solid var(--paper-line);border-radius:13px;padding:13px 12px;text-align:center;}
+  .stat-num{font-family:'IBM Plex Mono';font-size:22px;font-weight:500;color:var(--indigo-deep);}
+  .stat-label{font-size:10.5px;color:var(--slate);text-transform:uppercase;letter-spacing:.04em;margin-top:3px;}
+
+  .section-title{
+    font-family:'Fraunces',serif;font-weight:600;font-size:18px;margin:24px 0 12px;
+    display:flex;align-items:center;gap:8px;color:var(--indigo-deep);
+  }
+  .section-title .sw{width:8px;height:8px;border-radius:50%;background:var(--red);}
+  .section-title.sage .sw{background:var(--sage);}
+
+  .gap-card{
+    background:var(--card);border:1px solid var(--paper-line);border-radius:14px;
+    padding:16px 16px 15px;margin-bottom:12px;position:relative;
+  }
+  .gap-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:9px;}
+  .gap-concept{font-weight:700;font-size:14.5px;color:var(--ink);}
+  .sev-badge{
+    font-family:'IBM Plex Mono';font-size:10px;padding:3px 8px;border-radius:20px;
+    flex-shrink:0;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em;
+  }
+  .sev-high{background:var(--red-soft);color:var(--red);}
+  .sev-medium{background:var(--amber-soft);color:var(--amber);}
+  .sev-low{background:var(--sage-soft);color:var(--sage);}
+  .gap-mistake{font-size:13px;color:var(--ink);line-height:1.5;margin-bottom:8px;}
+  .gap-why{font-size:12.5px;color:var(--slate);line-height:1.5;margin-bottom:11px;}
+  .gap-fix{
+    background:var(--paper);border-left:2.5px solid var(--sage);border-radius:0 8px 8px 0;
+    padding:9px 12px;font-size:12.5px;color:var(--ink);line-height:1.5;
+  }
+  .gap-fix b{color:var(--sage);font-weight:700;}
+
+  .strength-card{
+    background:var(--sage-soft);border-radius:12px;padding:12px 14px;margin-bottom:9px;
+    font-size:13px;color:var(--ink);line-height:1.5;display:flex;gap:9px;
+  }
+  .strength-card svg{flex-shrink:0;margin-top:1px;}
+
+  .result-actions{margin-top:30px;display:flex;flex-direction:column;gap:10px;}
+
+  /* ERROR */
+  .error-box{
+    background:var(--red-soft);border-radius:12px;padding:14px 16px;font-size:13px;
+    color:var(--red);line-height:1.5;margin:16px 0;
+  }
+
+  ::selection{background:var(--red-soft);}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- HOME -->
+  <section class="screen active" id="screen-home">
+    <header class="top">
+      <div class="brand">
+        <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        conceptra
+      </div>
+    </header>
+
+    <div class="home-hero">
+      <div class="eyebrow">Test photo → concept diagnosis</div>
+      <h1 class="hero-title">Find the <em>gap</em>,<br>not just the grade.</h1>
+      <p class="hero-sub">Upload a photo of your test or homework. Conceptra reads every answer, finds the concepts you're missing, and tells you exactly what to study next.</p>
+
+      <div class="paper-mock">
+        <div class="mock-tag">gap found</div>
+        <div class="q"><b>Q3.</b> Solve: <span class="strike">2x + 5 = 15<svg viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M3 14 Q 30 4, 55 13 T 97 10" stroke="#B8402A" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></span></div>
+        <div class="q" style="color:#6E6C87;">Student wrote x = 10 — sign error while moving terms across the equals sign.</div>
+      </div>
+
+      <button class="cta-primary" onclick="goTo('upload')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 15V17C4 18.6569 5.34315 20 7 20H17C18.6569 20 20 18.6569 20 17V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Upload your test
+      </button>
+
+      <div class="how-it-works">
+        <div class="how-row">
+          <div class="how-num">01</div>
+          <div class="how-text"><b>Snap or upload</b><span>A photo of a graded or ungraded test, worksheet, or homework page.</span></div>
+        </div>
+        <div class="how-row">
+          <div class="how-num">02</div>
+          <div class="how-text"><b>Conceptra reads it</b><span>Every question and answer is checked against the underlying concept.</span></div>
+        </div>
+        <div class="how-row">
+          <div class="how-num">03</div>
+          <div class="how-text"><b>Get your gap map</b><span>See exactly which concepts are weak, why, and what to do about it.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPLOAD -->
+  <section class="screen" id="screen-upload">
+    <header class="top">
+      <button class="backbtn" onclick="goTo('home')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
+    </header>
+
+    <div class="field-label" style="margin-top:8px;">Step 1 — the test</div>
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7H6.5L8 4H16L17.5 7H20C20.5523 7 21 7.44772 21 8V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V8C3 7.44772 3.44772 7 4 7Z" stroke="#5C8A6B" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.3" stroke="#5C8A6B" stroke-width="1.8"/></svg>
+      </div>
+      <div class="upload-title">Add a photo</div>
+      <div class="upload-hint">Make sure the writing is clear and in good light. One page at a time works best.</div>
+      <div class="upload-btns">
+        <button class="chip-btn" onclick="document.getElementById('cameraInput').click()">Take photo</button>
+        <button class="chip-btn ghost" onclick="document.getElementById('fileInput').click()">Choose from gallery</button>
+      </div>
+      <input type="file" id="cameraInput" accept="image/*" capture="environment">
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <div class="field-label">Step 2 — subject <span style="text-transform:none;color:#A6A2BE;">(optional, helps accuracy)</span></div>
+    <input class="subject-input" id="subjectInput" placeholder="e.g. Grade 9 Algebra, Class 10 Chemistry">
+
+    <div class="analyze-row">
+      <button class="cta-primary" id="analyzeBtn" onclick="startScan()" disabled style="opacity:.45;">
+        Diagnose my gaps
+      </button>
+      <div class="disclaimer">Photos are analyzed to generate feedback and are not stored anywhere.</div>
+    </div>
+    <div id="uploadError"></div>
+  </section>
+
+  <!-- SCANNING -->
+  <section class="screen" id="screen-scan">
+    <header class="top">
+      <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
+      <div></div>
+    </header>
+    <div class="scan-stage">
+      <div class="scan-frame">
+        <img id="scanImg" src="" alt="scanning">
+        <div class="scan-line"></div>
+      </div>
+      <div class="scan-status"><span class="dot-pulse"></span><span id="scanStatusText">Reading your answers…</span></div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="screen" id="screen-results">
+    <header class="top">
+      <button class="backbtn" onclick="goTo('upload')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        New scan
+      </button>
+      <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
+    </header>
+
+    <div class="result-thumb"><img id="resultImg" src="" alt="analyzed test"></div>
+
+    <div class="summary-card">
+      <div class="summary-eyebrow">Overall diagnosis</div>
+      <div class="summary-text" id="summaryText">—</div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" id="statGaps">0</div><div class="stat-label">Gaps found</div></div>
+      <div class="stat-box"><div class="stat-num" id="statStrengths">0</div><div class="stat-label">Strengths</div></div>
+    </div>
+
+    <div class="section-title"><span class="sw"></span>Concept gaps</div>
+    <div id="gapsList"></div>
+
+    <div class="section-title sage"><span class="sw"></span>What's working</div>
+    <div id="strengthsList"></div>
+
+    <div class="result-actions">
+      <button class="cta-primary" onclick="goTo('upload'); resetUpload();">Diagnose another test</button>
+      <button class="cta-secondary" onclick="goTo('home')">Back to home</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+let uploadedBase64 = null;
+let uploadedMediaType = null;
+let uploadedDataUrl = null;
+
+function goTo(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+const uploadZoneDefaultHTML = `
+      <div class="upload-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7H6.5L8 4H16L17.5 7H20C20.5523 7 21 7.44772 21 8V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V8C3 7.44772 3.44772 7 4 7Z" stroke="#5C8A6B" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.3" stroke="#5C8A6B" stroke-width="1.8"/></svg>
+      </div>
+      <div class="upload-title">Add a photo</div>
+      <div class="upload-hint">Make sure the writing is clear and in good light. One page at a time works best.</div>
+      <div class="upload-btns">
+        <button class="chip-btn" onclick="document.getElementById('cameraInput').click()">Take photo</button>
+        <button class="chip-btn ghost" onclick="document.getElementById('fileInput').click()">Choose from gallery</button>
+      </div>`;
+
+function resetUpload(){
+  uploadedBase64 = null; uploadedDataUrl = null;
+  document.getElementById('analyzeBtn').disabled = true;
+  document.getElementById('analyzeBtn').style.opacity = .45;
+  document.getElementById('subjectInput').value = '';
+  const zone = document.getElementById('uploadZone');
+  zone.classList.remove('has-image');
+  zone.innerHTML = uploadZoneDefaultHTML;
+  document.getElementById('uploadError').innerHTML = '';
+}
+
+function handleFile(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    uploadedDataUrl = e.target.result;
+    uploadedMediaType = file.type || 'image/jpeg';
+    uploadedBase64 = uploadedDataUrl.split(',')[1];
+    const zone = document.getElementById('uploadZone');
+    zone.classList.add('has-image');
+    zone.innerHTML = `
+      <div class="preview-wrap">
+        <img src="${uploadedDataUrl}" alt="preview">
+        <button class="swap-btn" onclick="event.stopPropagation(); triggerReupload();">Change photo</button>
+      </div>`;
+    const btn = document.getElementById('analyzeBtn');
+    btn.disabled = false;
+    btn.style.opacity = 1;
+  };
+  reader.readAsDataURL(file);
+}
+
+function triggerReupload(){
+  document.getElementById('fileInput').click();
+}
+
+document.getElementById('fileInput').addEventListener('change', e=>handleFile(e.target.files[0]));
+document.getElementById('cameraInput').addEventListener('change', e=>handleFile(e.target.files[0]));
+
+const scanMessages = [
+  "Reading your answers…",
+  "Matching each answer to its concept…",
+  "Spotting where it went wrong…",
+  "Building your gap map…"
+];
+
+async function startScan(){
+  if(!uploadedBase64) return;
+  document.getElementById('scanImg').src = uploadedDataUrl;
+  goTo('scan');
+  let i = 0;
+  const statusEl = document.getElementById('scanStatusText');
+  const interval = setInterval(()=>{
+    i = (i+1) % scanMessages.length;
+    statusEl.textContent = scanMessages[i];
+  }, 1400);
+
+  try{
+    const subject = document.getElementById('subjectInput').value.trim();
+    const result = await analyzeWithClaude(uploadedBase64, uploadedMediaType, subject);
+    clearInterval(interval);
+    renderResults(result);
+    document.getElementById('resultImg').src = uploadedDataUrl;
+    goTo('results');
+  }catch(err){
+    clearInterval(interval);
+    console.error(err);
+    goTo('upload');
+    const box = document.getElementById('uploadError');
+    box.innerHTML = `<div class="error-box">Couldn't complete the diagnosis (${(err && err.message) ? err.message : 'unknown error'}). Please try again with a clearer photo.</div>`;
+  }
+}
+
+async function analyzeWithClaude(base64, mediaType, subject){
+  const subjectLine = subject ? `The student says this is: ${subject}.` : '';
+  const systemPrompt = `You are Conceptra, an expert, encouraging tutor who diagnoses learning gaps from a photo of a student's test, worksheet, or homework page.
+
+Look at every question and answer visible in the image. For each mistake, identify the underlying CONCEPT the student is weak in (not just "got question 3 wrong" but the actual skill/idea behind it, e.g. "distributing a negative sign across parentheses"). Group related mistakes into the same concept gap rather than listing every single question separately. Keep language simple, plain, and encouraging — written for the student to read directly, not a teacher's report.
+
+${subjectLine}
+
+Respond with ONLY valid JSON, no markdown fences, no commentary, matching exactly this shape:
+{
+  "overallSummary": "one or two encouraging sentences, in second person, summarizing the big picture",
+  "gaps": [
+    {
+      "concept": "short concept name, e.g. 'Solving linear equations with negative coefficients'",
+      "mistake": "one plain sentence describing what the student actually did wrong, referencing the specific question if possible",
+      "whyItHappened": "one short sentence on the likely root cause of the error",
+      "recommendation": "one concrete, specific, actionable thing the student should do to fix this gap (a practice type, a rule to memorize, a habit to build)",
+      "severity": "high, medium, or low"
+    }
+  ],
+  "strengths": ["short phrase describing something the student clearly did well, plain and specific"]
+}
+
+Include 2 to 5 gaps ordered by severity (high first), and 1 to 3 strengths. If the image is unclear or contains no gradeable academic work, return gaps as an empty array and explain that in overallSummary instead.`;
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-6",
+      max_tokens: 1500,
+      system: systemPrompt,
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "image", source: { type: "base64", media_type: mediaType, data: base64 } },
+            { type: "text", text: "Analyze this test/homework photo and return the JSON diagnosis." }
+          ]
+        }
+      ]
+    })
+  });
+
+  if(!response.ok){
+    throw new Error("Analysis request failed");
+  }
+  const data = await response.json();
+  const textBlock = (data.content || []).find(b => b.type === 'text');
+  if(!textBlock) throw new Error("No response from analyzer");
+  let clean = textBlock.text.trim().replace(/^```json/i,'').replace(/^```/,'').replace(/```$/,'').trim();
+  let parsed;
+  try{
+    parsed = JSON.parse(clean);
+  }catch(e){
+    throw new Error("Couldn't read the diagnosis");
+  }
+  return parsed;
+}
+
+function renderResults(result){
+  document.getElementById('summaryText').textContent = result.overallSummary || "Here's what we found.";
+  const gaps = result.gaps || [];
+  const strengths = result.strengths || [];
+
+  document.getElementById('statGaps').textContent = gaps.length;
+  document.getElementById('statStrengths').textContent = strengths.length;
+
+  const gapsList = document.getElementById('gapsList');
+  if(gaps.length === 0){
+    gapsList.innerHTML = `<div class="strength-card">No clear concept gaps were detected from this photo — try a clearer or more complete image if this seems off.</div>`;
+  } else {
+    gapsList.innerHTML = gaps.map(g => `
+      <div class="gap-card">
+        <div class="gap-top">
+          <div class="gap-concept">${escapeHtml(g.concept || '')}</div>
+          <div class="sev-badge sev-${(g.severity||'medium').toLowerCase()}">${(g.severity||'medium')}</div>
+        </div>
+        <div class="gap-mistake">${escapeHtml(g.mistake || '')}</div>
+        <div class="gap-why">${escapeHtml(g.whyItHappened || '')}</div>
+        <div class="gap-fix"><b>Do this →</b> ${escapeHtml(g.recommendation || '')}</div>
+      </div>
+    `).join('');
+  }
+
+  const strengthsList = document.getElementById('strengthsList');
+  if(strengths.length === 0){
+    strengthsList.innerHTML = `<div class="strength-card">Keep practicing — strengths will show up here once we spot a clear pattern.</div>`;
+  } else {
+    strengthsList.innerHTML = strengths.map(s => `
+      <div class="strength-card">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#5C8A6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>${escapeHtml(s)}</span>
+      </div>
+    `).join('');
+  }
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+</script>
+</body>
+</html>
