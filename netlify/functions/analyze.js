@@ -89,7 +89,8 @@ If imageQuality.readable is false, return "gaps": [] and "strengths": [] and lea
         ],
         generationConfig: {
           responseMimeType: 'application/json',
-          temperature: 0.4
+          temperature: 0.4,
+          thinkingConfig: { thinkingLevel: 'low' }
         }
       })
     });
