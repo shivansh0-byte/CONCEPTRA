@@ -1076,7 +1076,15 @@ async function sendChatMessage(){
     catch(e){ throw new Error('Server returned an unreadable response'); }
 
     if(!response.ok){
-      throw new Error(parsed.error || 'Chat request failed');
+      let msg = parsed.error || 'Chat request failed';
+      if(parsed.detail){
+        try{
+          const detailParsed = typeof parsed.detail === 'string' ? JSON.parse(parsed.detail) : parsed.detail;
+          const inner = detailParsed && detailParsed.error && detailParsed.error.message;
+          if(inner) msg = inner;
+        }catch(e){}
+      }
+      throw new Error(msg);
     }
 
     hideTypingIndicator();
