@@ -9,26 +9,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F5F2EA;
-    --paper-line:#DCD5C3;
-    --ink:#211F3B;
-    --indigo:#262357;
-    --indigo-deep:#181633;
-    --slate:#6E6C87;
-    --red:#B8402A;
-    --red-soft:#F1DCD3;
-    --sage:#5C8A6B;
-    --sage-soft:#DCE7DD;
-    --amber:#C08A2E;
-    --amber-soft:#F1E4C9;
-    --card:#FFFDF8;
+    --paper:#170B2E;
+    --paper-line:rgba(255,255,255,.10);
+    --ink:#F5F1FC;
+    --indigo:#B79CE8;
+    --indigo-deep:#2A1750;
+    --slate:#B0A8C9;
+    --red:#FF7A5C;
+    --red-soft:rgba(255,122,92,.16);
+    --sage:#7DDDA0;
+    --sage-soft:rgba(125,221,160,.16);
+    --amber:#F2C46B;
+    --amber-soft:rgba(242,196,107,.16);
+    --card:#241340;
     --radius:18px;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
     font-family:'Inter',sans-serif;
-    background:var(--indigo-deep);
+    background:
+      radial-gradient(circle at 15% 8%, rgba(139,92,196,.6), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(255,122,92,.16), transparent 40%),
+      linear-gradient(160deg, #3D1F63 0%, #170B2E 55%, #060309 100%);
     color:var(--ink);
     min-height:100vh;
     display:flex;
@@ -42,10 +45,20 @@
     background:var(--paper);
     position:relative;
     overflow-x:hidden;
+    box-shadow:0 0 80px -12px rgba(0,0,0,.75);
     background-image:
+      radial-gradient(ellipse 70% 40% at 20% 0%, rgba(139,92,196,.22), transparent 60%),
+      radial-gradient(ellipse 60% 35% at 100% 15%, rgba(74,46,122,.20), transparent 55%),
       linear-gradient(var(--paper-line) 1px, transparent 1px);
-    background-size: 100% 34px;
-    background-position: 0 96px;
+    background-size: 100% 100%, 100% 100%, 100% 34px;
+    background-position: 0 0, 0 0, 0 96px;
+    background-repeat: no-repeat, no-repeat, repeat;
+  }
+  #app::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent);
   }
   .screen{
     display:none;
@@ -66,11 +79,11 @@
     font-family:'Fraunces',serif;
     font-weight:600;
     font-size:21px;
-    color:var(--indigo);
+    color:var(--ink);
   }
   .brand .mark{
     width:26px;height:26px;border-radius:50%;
-    background:var(--indigo);
+    background:var(--red);
     display:flex;align-items:center;justify-content:center;
     flex-shrink:0;
   }
@@ -94,7 +107,7 @@
     font-size:34px;
     line-height:1.12;
     margin:10px 0 14px;
-    color:var(--indigo-deep);
+    color:var(--ink);
   }
   h1.hero-title em{
     font-style:italic;font-weight:500;color:var(--red);
@@ -104,39 +117,16 @@
     margin-bottom:26px;max-width:38ch;
   }
 
-  .paper-mock{
-    position:relative;
-    background:var(--card);
-    border:1px solid var(--paper-line);
-    border-radius:var(--radius);
-    padding:20px 20px 18px;
-    box-shadow:0 14px 30px -18px rgba(24,22,51,.35);
-    margin-bottom:28px;
-  }
-  .paper-mock .q{
-    font-size:13px;color:var(--ink);margin-bottom:10px;line-height:1.5;
-  }
-  .paper-mock .q b{font-weight:600;}
-  .strike{position:relative;display:inline-block;}
-  .strike svg{position:absolute;left:-3px;top:-6px;width:calc(100% + 6px);height:calc(100% + 12px);pointer-events:none;}
-  .mock-tag{
-    position:absolute;right:16px;top:16px;
-    font-family:'IBM Plex Mono';font-size:10px;color:var(--red);
-    background:var(--red-soft);padding:4px 8px;border-radius:20px;
-    display:flex;align-items:center;gap:5px;
-  }
-  .mock-tag::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red);}
-
   .cta-primary{
-    background:var(--indigo-deep);
-    color:#F5F2EA;
+    background:var(--red);
+    color:#1A0D2E;
     border:none;
     border-radius:14px;
     padding:16px 20px;
     font-family:'Inter';font-weight:600;font-size:15.5px;
     display:flex;align-items:center;justify-content:center;gap:10px;
     cursor:pointer;
-    box-shadow:0 10px 24px -12px rgba(24,22,51,.55);
+    box-shadow:0 10px 28px -10px rgba(255,122,92,.5);
   }
   .cta-primary:active{transform:scale(.98);}
   .cta-secondary{
@@ -161,7 +151,7 @@
 
   /* UPLOAD */
   .upload-zone{
-    border:1.5px dashed #C9C0A9;
+    border:1.5px dashed rgba(255,255,255,.24);
     border-radius:var(--radius);
     background:var(--card);
     padding:30px 20px;
@@ -180,7 +170,7 @@
   .upload-hint{font-size:12.5px;color:var(--slate);margin-bottom:18px;line-height:1.5;}
   .upload-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
   .chip-btn{
-    background:var(--indigo-deep);color:#F5F2EA;border:none;border-radius:11px;
+    background:var(--indigo);color:#1A0D2E;border:none;border-radius:11px;
     padding:11px 16px;font-size:13.5px;font-weight:600;font-family:'Inter';
     display:flex;align-items:center;gap:7px;cursor:pointer;
   }
@@ -188,7 +178,7 @@
   #fileInput,#cameraInput{display:none;}
 
   .preview-wrap{position:relative;border-radius:12px;overflow:hidden;}
-  .preview-wrap img{width:100%;display:block;max-height:340px;object-fit:contain;background:#EFEAE0;}
+  .preview-wrap img{width:100%;display:block;max-height:340px;object-fit:contain;background:#2A1A45;}
   .swap-btn{
     position:absolute;top:10px;right:10px;background:rgba(24,22,51,.75);
     color:#fff;border:none;border-radius:20px;padding:7px 12px;font-size:11.5px;
@@ -234,20 +224,20 @@
   .result-thumb img{width:100%;display:block;max-height:220px;object-fit:cover;}
 
   .summary-card{
-    background:var(--indigo-deep);color:#F5F2EA;border-radius:var(--radius);
-    padding:20px;margin-bottom:8px;
+    background:var(--indigo-deep);color:#F5F1FC;border-radius:var(--radius);
+    padding:20px;margin-bottom:8px;border:1px solid rgba(255,255,255,.08);
   }
-  .summary-eyebrow{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#B8B3E0;margin-bottom:8px;}
+  .summary-eyebrow{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#C9B8F0;margin-bottom:8px;}
   .summary-text{font-family:'Fraunces',serif;font-size:17px;line-height:1.45;font-weight:500;font-style:italic;}
 
   .stat-row{display:flex;gap:10px;margin:18px 0;}
   .stat-box{flex:1;background:var(--card);border:1px solid var(--paper-line);border-radius:13px;padding:13px 12px;text-align:center;}
-  .stat-num{font-family:'IBM Plex Mono';font-size:22px;font-weight:500;color:var(--indigo-deep);}
+  .stat-num{font-family:'IBM Plex Mono';font-size:22px;font-weight:500;color:var(--indigo);}
   .stat-label{font-size:10.5px;color:var(--slate);text-transform:uppercase;letter-spacing:.04em;margin-top:3px;}
 
   .section-title{
     font-family:'Fraunces',serif;font-weight:600;font-size:18px;margin:24px 0 12px;
-    display:flex;align-items:center;gap:8px;color:var(--indigo-deep);
+    display:flex;align-items:center;gap:8px;color:var(--ink);
   }
   .section-title .sw{width:8px;height:8px;border-radius:50%;background:var(--red);}
   .section-title.sage .sw{background:var(--sage);}
@@ -324,7 +314,7 @@
   .history-item:active{transform:scale(.99);}
   .history-thumb{
     width:56px;height:56px;border-radius:9px;object-fit:cover;flex-shrink:0;
-    background:#EFEAE0;
+    background:#2A1A45;
   }
   .history-info{flex:1;min-width:0;}
   .history-subject{font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:3px;
@@ -354,7 +344,7 @@
         conceptra
       </div>
       <button class="icon-btn" onclick="goTo('history'); renderHistory();" aria-label="View history">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#262357" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#262357" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#B79CE8" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#B79CE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </header>
 
@@ -362,12 +352,6 @@
       <div class="eyebrow">Test photo → concept diagnosis</div>
       <h1 class="hero-title">Find the <em>gap</em>,<br>not just the grade.</h1>
       <p class="hero-sub">Upload a photo of your test or homework. Conceptra reads every answer, finds the concepts you're missing, and tells you exactly what to study next.</p>
-
-      <div class="paper-mock">
-        <div class="mock-tag">gap found</div>
-        <div class="q"><b>Q3.</b> Solve: <span class="strike">2x + 5 = 15<svg viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M3 14 Q 30 4, 55 13 T 97 10" stroke="#B8402A" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></span></div>
-        <div class="q" style="color:#6E6C87;">Student wrote x = 10 — sign error while moving terms across the equals sign.</div>
-      </div>
 
       <button class="cta-primary" onclick="goTo('upload')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 15V17C4 18.6569 5.34315 20 7 20H17C18.6569 20 20 18.6569 20 17V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -404,7 +388,7 @@
     <div class="field-label" style="margin-top:8px;">Step 1 — the test</div>
     <div class="upload-zone" id="uploadZone">
       <div class="upload-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7H6.5L8 4H16L17.5 7H20C20.5523 7 21 7.44772 21 8V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V8C3 7.44772 3.44772 7 4 7Z" stroke="#5C8A6B" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.3" stroke="#5C8A6B" stroke-width="1.8"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7H6.5L8 4H16L17.5 7H20C20.5523 7 21 7.44772 21 8V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V8C3 7.44772 3.44772 7 4 7Z" stroke="#7DDDA0" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.3" stroke="#7DDDA0" stroke-width="1.8"/></svg>
       </div>
       <div class="upload-title">Add a photo</div>
       <div class="upload-hint">Make sure the writing is clear and in good light. One page at a time works best.</div>
@@ -416,7 +400,7 @@
       <input type="file" id="fileInput" accept="image/*">
     </div>
 
-    <div class="field-label">Step 2 — subject <span style="text-transform:none;color:#A6A2BE;">(optional, helps accuracy)</span></div>
+    <div class="field-label">Step 2 — subject <span style="text-transform:none;color:var(--slate);">(optional, helps accuracy)</span></div>
     <input class="subject-input" id="subjectInput" placeholder="e.g. Grade 9 Algebra, Class 10 Chemistry">
 
     <div class="analyze-row">
@@ -493,7 +477,7 @@
       </div>
 
       <div class="unclear-badge">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#B8402A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#FF7A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Handwriting is hard to read
       </div>
 
@@ -631,7 +615,7 @@ function renderHistory(){
     list.innerHTML = `
       <div class="history-empty">
         <div class="upload-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#B8402A" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#B8402A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#FF7A5C" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#FF7A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="upload-title">No scans yet</div>
         <div class="upload-hint">Every test you diagnose will show up here, so you can track your gaps over time.</div>
@@ -686,7 +670,7 @@ function openHistoryEntry(index){
     ? `<div class="strength-card">No strengths were recorded for this scan.</div>`
     : h.strengths.map(s => `
       <div class="strength-card">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#5C8A6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#7DDDA0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span>${escapeHtml(s)}</span>
       </div>
     `).join('');
@@ -702,7 +686,7 @@ function goTo(name){
 
 const uploadZoneDefaultHTML = `
       <div class="upload-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7H6.5L8 4H16L17.5 7H20C20.5523 7 21 7.44772 21 8V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V8C3 7.44772 3.44772 7 4 7Z" stroke="#5C8A6B" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.3" stroke="#5C8A6B" stroke-width="1.8"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7H6.5L8 4H16L17.5 7H20C20.5523 7 21 7.44772 21 8V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V8C3 7.44772 3.44772 7 4 7Z" stroke="#7DDDA0" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.3" stroke="#7DDDA0" stroke-width="1.8"/></svg>
       </div>
       <div class="upload-title">Add a photo</div>
       <div class="upload-hint">Make sure the writing is clear and in good light. One page at a time works best.</div>
@@ -895,7 +879,7 @@ function renderResults(result){
   } else {
     strengthsList.innerHTML = strengths.map(s => `
       <div class="strength-card">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#5C8A6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#7DDDA0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span>${escapeHtml(s)}</span>
       </div>
     `).join('');
