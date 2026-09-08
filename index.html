@@ -330,6 +330,62 @@
     font-weight:600;cursor:pointer;padding:8px 0;margin-top:6px;text-align:center;
   }
 
+  /* CHAT */
+  .header-icons{display:flex;align-items:center;gap:8px;}
+  .chat-screen-body{
+    display:flex;flex-direction:column;flex:1;min-height:0;
+  }
+  .chat-context-chip{
+    display:flex;align-items:center;gap:8px;
+    background:var(--card);border:1px solid var(--paper-line);border-radius:12px;
+    padding:10px 13px;margin:2px 0 14px;font-size:12px;color:var(--slate);line-height:1.4;
+  }
+  .chat-context-chip svg{flex-shrink:0;}
+  .chat-messages{
+    flex:1;display:flex;flex-direction:column;gap:12px;
+    overflow-y:auto;padding-bottom:16px;
+  }
+  .chat-bubble{
+    max-width:84%;padding:11px 14px;border-radius:16px;font-size:13.5px;line-height:1.55;
+    white-space:pre-wrap;
+  }
+  .chat-bubble.user{
+    align-self:flex-end;background:var(--red);color:#1A0D2E;
+    border-bottom-right-radius:5px;font-weight:500;
+  }
+  .chat-bubble.assistant{
+    align-self:flex-start;background:var(--card);color:var(--ink);
+    border:1px solid var(--paper-line);border-bottom-left-radius:5px;
+  }
+  .chat-bubble.typing{
+    display:flex;gap:5px;align-items:center;padding:14px 16px;
+  }
+  .chat-dot{width:6px;height:6px;border-radius:50%;background:var(--slate);animation:chatPulse 1.2s infinite ease-in-out;}
+  .chat-dot:nth-child(2){animation-delay:.15s;}
+  .chat-dot:nth-child(3){animation-delay:.3s;}
+  @keyframes chatPulse{0%,60%,100%{opacity:.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-2px);}}
+
+  .chat-input-row{
+    display:flex;gap:9px;align-items:flex-end;
+    padding:12px 0 4px;border-top:1px solid var(--paper-line);margin-top:8px;
+  }
+  .chat-textarea{
+    flex:1;resize:none;max-height:100px;min-height:44px;
+    border-radius:14px;border:1.5px solid var(--paper-line);background:var(--card);
+    color:var(--ink);font-family:'Inter';font-size:14px;padding:11px 14px;line-height:1.4;
+  }
+  .chat-textarea:focus{outline:none;border-color:var(--indigo);}
+  .chat-send-btn{
+    width:44px;height:44px;border-radius:50%;border:none;background:var(--red);
+    color:#1A0D2E;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    cursor:pointer;
+  }
+  .chat-send-btn:disabled{opacity:.4;cursor:not-allowed;}
+  .chat-empty{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    margin-top:40px;padding:0 10px;
+  }
+
   ::selection{background:var(--red-soft);}
 </style>
 </head>
@@ -343,9 +399,14 @@
         <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         conceptra
       </div>
-      <button class="icon-btn" onclick="goTo('history'); renderHistory();" aria-label="View history">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#B79CE8" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#B79CE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
+      <div class="header-icons">
+        <button class="icon-btn" onclick="openChat();" aria-label="Chat with tutor">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3097 17.8992 16.9673 18.7293C15.6248 19.5594 14.0781 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92188 4.44061 8.37525 5.27072 7.03278C6.10083 5.6903 7.28825 4.6056 8.7 3.9C9.87812 3.30493 11.1801 2.99656 12.5 3H13C15.0843 3.11499 17.053 3.99476 18.5291 5.47086C20.0052 6.94695 20.885 8.91565 21 11V11.5Z" stroke="#B79CE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn" onclick="goTo('history'); renderHistory();" aria-label="View history">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#B79CE8" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#B79CE8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </header>
 
     <div class="home-hero">
@@ -542,6 +603,29 @@
     <div class="result-actions">
       <button class="cta-primary" onclick="goTo('upload'); resetUpload();">Diagnose another test</button>
       <button class="cta-secondary" onclick="goTo('history')">Back to history</button>
+    </div>
+  </section>
+
+  <!-- CHAT -->
+  <section class="screen" id="screen-chat">
+    <header class="top">
+      <button class="backbtn" onclick="goTo('home')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
+      </button>
+      <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
+    </header>
+
+    <div class="chat-screen-body">
+      <div id="chatContextChip"></div>
+      <div class="chat-messages" id="chatMessages"></div>
+
+      <div class="chat-input-row">
+        <textarea class="chat-textarea" id="chatInput" rows="1" placeholder="Ask a question…" onkeydown="handleChatKeydown(event)"></textarea>
+        <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()" aria-label="Send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -890,6 +974,122 @@ function escapeHtml(str){
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+/* ---------------- CHAT ---------------- */
+let chatMessages = [];
+let chatContext = null;
+let chatSending = false;
+
+function buildChatContext(){
+  const history = loadHistory();
+  if(history.length === 0) return null;
+  const latest = history[0];
+  return {
+    subject: latest.subject || '',
+    overallSummary: latest.overallSummary || '',
+    gaps: latest.gaps || [],
+    strengths: latest.strengths || []
+  };
+}
+
+function openChat(){
+  chatContext = buildChatContext();
+  const chip = document.getElementById('chatContextChip');
+
+  if(chatContext){
+    const gapCount = chatContext.gaps.length;
+    chip.innerHTML = `
+      <div class="chat-context-chip">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#7DDDA0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Knows about your last scan${chatContext.subject ? ' (' + escapeHtml(chatContext.subject) + ')' : ''} — ${gapCount} gap${gapCount === 1 ? '' : 's'} found. Ask about it anytime.</span>
+      </div>`;
+  } else {
+    chip.innerHTML = '';
+  }
+
+  if(chatMessages.length === 0){
+    const greeting = chatContext
+      ? "Hi! I saw your last scan — happy to go deeper on any of those concept gaps, or help with anything else you're studying. What's up?"
+      : "Hi! I'm your Conceptra tutor. Ask me anything you're stuck on — once you diagnose a test, I'll remember what to help you with too.";
+    chatMessages.push({ role: 'assistant', text: greeting });
+  }
+
+  renderChatMessages();
+  goTo('chat');
+  setTimeout(()=>{ document.getElementById('chatInput').focus(); }, 100);
+}
+
+function renderChatMessages(){
+  const container = document.getElementById('chatMessages');
+  container.innerHTML = chatMessages.map(m => `
+    <div class="chat-bubble ${m.role === 'user' ? 'user' : 'assistant'}">${escapeHtml(m.text)}</div>
+  `).join('');
+  container.scrollTop = container.scrollHeight;
+}
+
+function showTypingIndicator(){
+  const container = document.getElementById('chatMessages');
+  const el = document.createElement('div');
+  el.className = 'chat-bubble assistant typing';
+  el.id = 'typingIndicator';
+  el.innerHTML = '<span class="chat-dot"></span><span class="chat-dot"></span><span class="chat-dot"></span>';
+  container.appendChild(el);
+  container.scrollTop = container.scrollHeight;
+}
+
+function hideTypingIndicator(){
+  const el = document.getElementById('typingIndicator');
+  if(el) el.remove();
+}
+
+function handleChatKeydown(e){
+  if(e.key === 'Enter' && !e.shiftKey){
+    e.preventDefault();
+    sendChatMessage();
+  }
+}
+
+async function sendChatMessage(){
+  if(chatSending) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+
+  chatMessages.push({ role: 'user', text });
+  input.value = '';
+  renderChatMessages();
+
+  chatSending = true;
+  document.getElementById('chatSendBtn').disabled = true;
+  showTypingIndicator();
+
+  try{
+    const response = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: chatMessages, context: chatContext })
+    });
+    const raw = await response.text();
+    let parsed;
+    try{ parsed = JSON.parse(raw); }
+    catch(e){ throw new Error('Server returned an unreadable response'); }
+
+    if(!response.ok){
+      throw new Error(parsed.error || 'Chat request failed');
+    }
+
+    hideTypingIndicator();
+    chatMessages.push({ role: 'assistant', text: parsed.reply });
+    renderChatMessages();
+  }catch(err){
+    hideTypingIndicator();
+    chatMessages.push({ role: 'assistant', text: "Sorry, I couldn't respond just now (" + ((err && err.message) || 'unknown error') + "). Please try again." });
+    renderChatMessages();
+  }finally{
+    chatSending = false;
+    document.getElementById('chatSendBtn').disabled = false;
+  }
 }
 </script>
 </body>
