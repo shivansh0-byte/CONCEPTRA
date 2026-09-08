@@ -71,7 +71,7 @@ Respond with ONLY valid JSON matching exactly this shape:
 If imageQuality.readable is false, return "gaps": [] and "strengths": [] and leave overallSummary empty — do not attempt a diagnosis on text you can't confidently read. Otherwise include 2 to 5 gaps ordered by severity (high first), and 1 to 3 strengths.`;
 
   try {
-    const model = 'gemini-2.5-flash';
+    const model = 'gemini-3.6-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
