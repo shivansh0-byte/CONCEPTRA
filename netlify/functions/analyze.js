@@ -97,6 +97,7 @@ If imageQuality.readable is false, return "gaps": [] and "strengths": [] and lea
     const raw = await response.text();
 
     if (!response.ok) {
+      console.error('Gemini API returned an error. Status:', response.status, 'Body:', raw);
       return { statusCode: response.status, body: JSON.stringify({ error: 'Gemini API error', detail: raw }) };
     }
 
