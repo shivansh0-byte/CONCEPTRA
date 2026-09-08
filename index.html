@@ -55,7 +55,7 @@
   }
   .screen.active{display:flex;flex-direction:column;}
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
+ 
   /* Header */
   header.top{
     display:flex;align-items:center;justify-content:space-between;
@@ -80,7 +80,7 @@
     font-family:'Inter';font-size:14px;font-weight:500;
     cursor:pointer;padding:8px 4px;display:flex;align-items:center;gap:5px;
   }
-
+ 
   /* HOME */
   .home-hero{margin-top:6px;}
   .eyebrow{
@@ -103,7 +103,7 @@
     font-size:15px;line-height:1.55;color:var(--slate);
     margin-bottom:26px;max-width:38ch;
   }
-
+ 
   .paper-mock{
     position:relative;
     background:var(--card);
@@ -126,7 +126,7 @@
     display:flex;align-items:center;gap:5px;
   }
   .mock-tag::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red);}
-
+ 
   .cta-primary{
     background:var(--indigo-deep);
     color:#F5F2EA;
@@ -158,7 +158,7 @@
   }
   .how-text b{display:block;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:2px;}
   .how-text span{font-size:12.5px;color:var(--slate);line-height:1.4;}
-
+ 
   /* UPLOAD */
   .upload-zone{
     border:1.5px dashed #C9C0A9;
@@ -186,7 +186,7 @@
   }
   .chip-btn.ghost{background:transparent;color:var(--indigo);border:1.5px solid var(--paper-line);}
   #fileInput,#cameraInput{display:none;}
-
+ 
   .preview-wrap{position:relative;border-radius:12px;overflow:hidden;}
   .preview-wrap img{width:100%;display:block;max-height:340px;object-fit:contain;background:#EFEAE0;}
   .swap-btn{
@@ -194,7 +194,7 @@
     color:#fff;border:none;border-radius:20px;padding:7px 12px;font-size:11.5px;
     font-family:'Inter';font-weight:600;cursor:pointer;
   }
-
+ 
   .field-label{font-size:12px;font-weight:600;color:var(--slate);margin:22px 0 8px;text-transform:uppercase;letter-spacing:.05em;}
   .subject-input{
     width:100%;padding:13px 14px;border-radius:11px;border:1.5px solid var(--paper-line);
@@ -203,7 +203,7 @@
   .subject-input:focus{outline:none;border-color:var(--indigo);}
   .analyze-row{margin-top:24px;}
   .disclaimer{font-size:11px;color:var(--slate);text-align:center;margin-top:12px;line-height:1.5;}
-
+ 
   /* SCANNING */
   .scan-stage{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -225,33 +225,33 @@
     display:flex;align-items:center;gap:8px;}
   .dot-pulse{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1s infinite ease-in-out;}
   @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
-
+ 
   /* RESULTS */
   .result-thumb{
     border-radius:14px;overflow:hidden;border:1px solid var(--paper-line);margin:6px 0 18px;
     background:var(--card);
   }
   .result-thumb img{width:100%;display:block;max-height:220px;object-fit:cover;}
-
+ 
   .summary-card{
     background:var(--indigo-deep);color:#F5F2EA;border-radius:var(--radius);
     padding:20px;margin-bottom:8px;
   }
   .summary-eyebrow{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#B8B3E0;margin-bottom:8px;}
   .summary-text{font-family:'Fraunces',serif;font-size:17px;line-height:1.45;font-weight:500;font-style:italic;}
-
+ 
   .stat-row{display:flex;gap:10px;margin:18px 0;}
   .stat-box{flex:1;background:var(--card);border:1px solid var(--paper-line);border-radius:13px;padding:13px 12px;text-align:center;}
   .stat-num{font-family:'IBM Plex Mono';font-size:22px;font-weight:500;color:var(--indigo-deep);}
   .stat-label{font-size:10.5px;color:var(--slate);text-transform:uppercase;letter-spacing:.04em;margin-top:3px;}
-
+ 
   .section-title{
     font-family:'Fraunces',serif;font-weight:600;font-size:18px;margin:24px 0 12px;
     display:flex;align-items:center;gap:8px;color:var(--indigo-deep);
   }
   .section-title .sw{width:8px;height:8px;border-radius:50%;background:var(--red);}
   .section-title.sage .sw{background:var(--sage);}
-
+ 
   .gap-card{
     background:var(--card);border:1px solid var(--paper-line);border-radius:14px;
     padding:16px 16px 15px;margin-bottom:12px;position:relative;
@@ -272,21 +272,21 @@
     padding:9px 12px;font-size:12.5px;color:var(--ink);line-height:1.5;
   }
   .gap-fix b{color:var(--sage);font-weight:700;}
-
+ 
   .strength-card{
     background:var(--sage-soft);border-radius:12px;padding:12px 14px;margin-bottom:9px;
     font-size:13px;color:var(--ink);line-height:1.5;display:flex;gap:9px;
   }
   .strength-card svg{flex-shrink:0;margin-top:1px;}
-
+ 
   .result-actions{margin-top:30px;display:flex;flex-direction:column;gap:10px;}
-
+ 
   /* ERROR */
   .error-box{
     background:var(--red-soft);border-radius:12px;padding:14px 16px;font-size:13px;
     color:var(--red);line-height:1.5;margin:16px 0;
   }
-
+ 
   /* UNCLEAR PHOTO */
   .unclear-badge{
     display:inline-flex;align-items:center;gap:8px;
@@ -303,7 +303,7 @@
     width:6px;height:6px;border-radius:50%;background:var(--sage);
     margin-top:6px;flex-shrink:0;
   }
-
+ 
   /* HISTORY */
   .icon-btn{
     width:36px;height:36px;border-radius:50%;border:1.5px solid var(--paper-line);
@@ -339,13 +339,13 @@
     background:none;border:none;color:var(--red);font-family:'Inter';font-size:12.5px;
     font-weight:600;cursor:pointer;padding:8px 0;margin-top:6px;text-align:center;
   }
-
+ 
   ::selection{background:var(--red-soft);}
 </style>
 </head>
 <body>
 <div id="app">
-
+ 
   <!-- HOME -->
   <section class="screen active" id="screen-home">
     <header class="top">
@@ -357,23 +357,23 @@
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#262357" stroke-width="1.8"/><path d="M12 7V12L15.5 14.2" stroke="#262357" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </header>
-
+ 
     <div class="home-hero">
       <div class="eyebrow">Test photo → concept diagnosis</div>
       <h1 class="hero-title">Find the <em>gap</em>,<br>not just the grade.</h1>
       <p class="hero-sub">Upload a photo of your test or homework. Conceptra reads every answer, finds the concepts you're missing, and tells you exactly what to study next.</p>
-
+ 
       <div class="paper-mock">
         <div class="mock-tag">gap found</div>
         <div class="q"><b>Q3.</b> Solve: <span class="strike">2x + 5 = 15<svg viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M3 14 Q 30 4, 55 13 T 97 10" stroke="#B8402A" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></span></div>
         <div class="q" style="color:#6E6C87;">Student wrote x = 10 — sign error while moving terms across the equals sign.</div>
       </div>
-
+ 
       <button class="cta-primary" onclick="goTo('upload')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 15V3M12 3L7 8M12 3L17 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 15V17C4 18.6569 5.34315 20 7 20H17C18.6569 20 20 18.6569 20 17V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         Upload your test
       </button>
-
+ 
       <div class="how-it-works">
         <div class="how-row">
           <div class="how-num">01</div>
@@ -390,7 +390,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- UPLOAD -->
   <section class="screen" id="screen-upload">
     <header class="top">
@@ -400,7 +400,7 @@
       </button>
       <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
     </header>
-
+ 
     <div class="field-label" style="margin-top:8px;">Step 1 — the test</div>
     <div class="upload-zone" id="uploadZone">
       <div class="upload-icon">
@@ -415,10 +415,10 @@
       <input type="file" id="cameraInput" accept="image/*" capture="environment">
       <input type="file" id="fileInput" accept="image/*">
     </div>
-
+ 
     <div class="field-label">Step 2 — subject <span style="text-transform:none;color:#A6A2BE;">(optional, helps accuracy)</span></div>
     <input class="subject-input" id="subjectInput" placeholder="e.g. Grade 9 Algebra, Class 10 Chemistry">
-
+ 
     <div class="analyze-row">
       <button class="cta-primary" id="analyzeBtn" onclick="startScan()" disabled style="opacity:.45;">
         Diagnose my gaps
@@ -427,7 +427,7 @@
     </div>
     <div id="uploadError"></div>
   </section>
-
+ 
   <!-- SCANNING -->
   <section class="screen" id="screen-scan">
     <header class="top">
@@ -442,7 +442,7 @@
       <div class="scan-status"><span class="dot-pulse"></span><span id="scanStatusText">Reading your answers…</span></div>
     </div>
   </section>
-
+ 
   <!-- RESULTS -->
   <section class="screen" id="screen-results">
     <header class="top">
@@ -452,31 +452,31 @@
       </button>
       <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
     </header>
-
+ 
     <div class="result-thumb"><img id="resultImg" src="" alt="analyzed test"></div>
-
+ 
     <div class="summary-card">
       <div class="summary-eyebrow">Overall diagnosis</div>
       <div class="summary-text" id="summaryText">—</div>
     </div>
-
+ 
     <div class="stat-row">
       <div class="stat-box"><div class="stat-num" id="statGaps">0</div><div class="stat-label">Gaps found</div></div>
       <div class="stat-box"><div class="stat-num" id="statStrengths">0</div><div class="stat-label">Strengths</div></div>
     </div>
-
+ 
     <div class="section-title"><span class="sw"></span>Concept gaps</div>
     <div id="gapsList"></div>
-
+ 
     <div class="section-title sage"><span class="sw"></span>What's working</div>
     <div id="strengthsList"></div>
-
+ 
     <div class="result-actions">
       <button class="cta-primary" onclick="goTo('upload'); resetUpload();">Diagnose another test</button>
       <button class="cta-secondary" onclick="goTo('home')">Back to home</button>
     </div>
   </section>
-
+ 
   <!-- UNCLEAR PHOTO -->
   <section class="screen" id="screen-unclear">
     <header class="top">
@@ -486,32 +486,32 @@
       </button>
       <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
     </header>
-
+ 
     <div class="scan-stage" style="justify-content:flex-start;padding-top:10px;">
       <div class="result-thumb" style="width:100%;">
         <img id="unclearImg" src="" alt="unclear photo">
       </div>
-
+ 
       <div class="unclear-badge">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 9V13M12 17H12.01M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#B8402A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Handwriting is hard to read
       </div>
-
+ 
       <div class="unclear-reason" id="unclearReason">—</div>
-
+ 
       <div class="field-label" style="margin-top:6px;">Tips for a clearer scan</div>
       <div class="tip-row"><span class="tip-dot"></span>Use bright, even light — avoid shadows falling across the page</div>
       <div class="tip-row"><span class="tip-dot"></span>Hold the camera directly above the page, not at an angle</div>
       <div class="tip-row"><span class="tip-dot"></span>Fill the frame with just the page — get close, avoid blur</div>
       <div class="tip-row"><span class="tip-dot"></span>Make sure all writing is in focus before capturing</div>
-
+ 
       <div class="result-actions" style="margin-top:26px;">
         <button class="cta-primary" onclick="goTo('upload'); resetUpload();">Try another photo</button>
         <button class="cta-secondary" onclick="goTo('home')">Back to home</button>
       </div>
     </div>
   </section>
-
+ 
   <!-- HISTORY -->
   <section class="screen" id="screen-history">
     <header class="top">
@@ -521,12 +521,12 @@
       </button>
       <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
     </header>
-
+ 
     <div class="field-label" style="margin-top:4px;">Past scans</div>
     <div id="historyList"></div>
     <button class="clear-history-btn" id="clearHistoryBtn" onclick="clearHistory()">Clear history</button>
   </section>
-
+ 
   <!-- HISTORY DETAIL (reuses results layout) -->
   <section class="screen" id="screen-history-detail">
     <header class="top">
@@ -536,41 +536,41 @@
       </button>
       <div class="brand" style="font-size:16px;"><span class="mark" style="width:20px;height:20px;"><svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px;"><path d="M4 12L10 18L20 6" stroke="#F5F2EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>conceptra</div>
     </header>
-
+ 
     <div class="result-thumb"><img id="hdResultImg" src="" alt="past scan"></div>
-
+ 
     <div class="summary-card">
       <div class="summary-eyebrow" id="hdDate">—</div>
       <div class="summary-text" id="hdSummaryText">—</div>
     </div>
-
+ 
     <div class="stat-row">
       <div class="stat-box"><div class="stat-num" id="hdStatGaps">0</div><div class="stat-label">Gaps found</div></div>
       <div class="stat-box"><div class="stat-num" id="hdStatStrengths">0</div><div class="stat-label">Strengths</div></div>
     </div>
-
+ 
     <div class="section-title"><span class="sw"></span>Concept gaps</div>
     <div id="hdGapsList"></div>
-
+ 
     <div class="section-title sage"><span class="sw"></span>What's working</div>
     <div id="hdStrengthsList"></div>
-
+ 
     <div class="result-actions">
       <button class="cta-primary" onclick="goTo('upload'); resetUpload();">Diagnose another test</button>
       <button class="cta-secondary" onclick="goTo('history')">Back to history</button>
     </div>
   </section>
-
+ 
 </div>
-
+ 
 <script>
 let uploadedBase64 = null;
 let uploadedMediaType = null;
 let uploadedDataUrl = null;
-
+ 
 const HISTORY_KEY = 'conceptra_history_v1';
 const MAX_HISTORY = 30;
-
+ 
 function loadHistory(){
   try{
     const raw = localStorage.getItem(HISTORY_KEY);
@@ -579,7 +579,7 @@ function loadHistory(){
     return [];
   }
 }
-
+ 
 function saveHistoryEntry(entry){
   try{
     let history = loadHistory();
@@ -590,13 +590,13 @@ function saveHistoryEntry(entry){
     console.warn('Could not save to history (storage may be full or unavailable):', e);
   }
 }
-
+ 
 function clearHistory(){
   if(!confirm('Clear all past scan history? This can\'t be undone.')) return;
   try{ localStorage.removeItem(HISTORY_KEY); }catch(e){}
   renderHistory();
 }
-
+ 
 // Downscales an image data URL to a small JPEG thumbnail so history entries stay light in storage.
 function makeThumbnail(dataUrl, maxDim){
   return new Promise((resolve)=>{
@@ -614,18 +614,18 @@ function makeThumbnail(dataUrl, maxDim){
     img.src = dataUrl;
   });
 }
-
+ 
 function formatHistoryDate(iso){
   const d = new Date(iso);
   return d.toLocaleDateString(undefined, { month:'short', day:'numeric' }) + ' · ' +
     d.toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
 }
-
+ 
 function renderHistory(){
   const list = document.getElementById('historyList');
   const clearBtn = document.getElementById('clearHistoryBtn');
   const history = loadHistory();
-
+ 
   if(history.length === 0){
     clearBtn.style.display = 'none';
     list.innerHTML = `
@@ -638,7 +638,7 @@ function renderHistory(){
       </div>`;
     return;
   }
-
+ 
   clearBtn.style.display = 'block';
   list.innerHTML = history.map((h, i) => `
     <div class="history-item" onclick="openHistoryEntry(${i})">
@@ -654,18 +654,18 @@ function renderHistory(){
     </div>
   `).join('');
 }
-
+ 
 function openHistoryEntry(index){
   const history = loadHistory();
   const h = history[index];
   if(!h) return;
-
+ 
   document.getElementById('hdResultImg').src = h.thumbnail;
   document.getElementById('hdDate').textContent = formatHistoryDate(h.date) + (h.subject ? ' · ' + h.subject : '');
   document.getElementById('hdSummaryText').textContent = h.overallSummary || '—';
   document.getElementById('hdStatGaps').textContent = h.gaps.length;
   document.getElementById('hdStatStrengths').textContent = h.strengths.length;
-
+ 
   const gapsList = document.getElementById('hdGapsList');
   gapsList.innerHTML = h.gaps.length === 0
     ? `<div class="strength-card">No concept gaps were recorded for this scan.</div>`
@@ -680,7 +680,7 @@ function openHistoryEntry(index){
         <div class="gap-fix"><b>Do this →</b> ${escapeHtml(g.recommendation || '')}</div>
       </div>
     `).join('');
-
+ 
   const strengthsList = document.getElementById('hdStrengthsList');
   strengthsList.innerHTML = h.strengths.length === 0
     ? `<div class="strength-card">No strengths were recorded for this scan.</div>`
@@ -690,16 +690,16 @@ function openHistoryEntry(index){
         <span>${escapeHtml(s)}</span>
       </div>
     `).join('');
-
+ 
   goTo('history-detail');
 }
-
+ 
 function goTo(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
   window.scrollTo(0,0);
 }
-
+ 
 const uploadZoneDefaultHTML = `
       <div class="upload-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 7H6.5L8 4H16L17.5 7H20C20.5523 7 21 7.44772 21 8V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18V8C3 7.44772 3.44772 7 4 7Z" stroke="#5C8A6B" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.3" stroke="#5C8A6B" stroke-width="1.8"/></svg>
@@ -710,7 +710,7 @@ const uploadZoneDefaultHTML = `
         <button class="chip-btn" onclick="document.getElementById('cameraInput').click()">Take photo</button>
         <button class="chip-btn ghost" onclick="document.getElementById('fileInput').click()">Choose from gallery</button>
       </div>`;
-
+ 
 function resetUpload(){
   uploadedBase64 = null; uploadedDataUrl = null;
   document.getElementById('analyzeBtn').disabled = true;
@@ -721,7 +721,7 @@ function resetUpload(){
   zone.innerHTML = uploadZoneDefaultHTML;
   document.getElementById('uploadError').innerHTML = '';
 }
-
+ 
 // Resizes/compresses an uploaded photo to a safe size for the analysis
 // request (Netlify functions reject payloads over ~6MB). Keeps the image
 // large enough to stay readable while avoiding oversized uploads.
@@ -743,7 +743,7 @@ function compressImage(dataUrl, maxDim, quality){
     img.src = dataUrl;
   });
 }
-
+ 
 function handleFile(file){
   if(!file) return;
   const reader = new FileReader();
@@ -767,21 +767,21 @@ function handleFile(file){
   };
   reader.readAsDataURL(file);
 }
-
+ 
 function triggerReupload(){
   document.getElementById('fileInput').click();
 }
-
+ 
 document.getElementById('fileInput').addEventListener('change', e=>handleFile(e.target.files[0]));
 document.getElementById('cameraInput').addEventListener('change', e=>handleFile(e.target.files[0]));
-
+ 
 const scanMessages = [
   "Reading your answers…",
   "Matching each answer to its concept…",
   "Spotting where it went wrong…",
   "Building your gap map…"
 ];
-
+ 
 async function startScan(){
   if(!uploadedBase64) return;
   document.getElementById('scanImg').src = uploadedDataUrl;
@@ -792,7 +792,7 @@ async function startScan(){
     i = (i+1) % scanMessages.length;
     statusEl.textContent = scanMessages[i];
   }, 1400);
-
+ 
   try{
     const subject = document.getElementById('subjectInput').value.trim();
     const result = await analyzeWithClaude(uploadedBase64, uploadedMediaType, subject);
@@ -807,7 +807,7 @@ async function startScan(){
     renderResults(result);
     document.getElementById('resultImg').src = uploadedDataUrl;
     goTo('results');
-
+ 
     // Save to history (fire-and-forget; doesn't block navigation)
     makeThumbnail(uploadedDataUrl, 400).then(thumb => {
       saveHistoryEntry({
@@ -828,14 +828,14 @@ async function startScan(){
     box.innerHTML = `<div class="error-box">Couldn't complete the diagnosis (${(err && err.message) ? err.message : 'unknown error'}). Please try again with a clearer photo.</div>`;
   }
 }
-
+ 
 async function analyzeWithClaude(base64, mediaType, subject){
   const response = await fetch("/.netlify/functions/analyze", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ base64, mediaType, subject })
   });
-
+ 
   const raw = await response.text();
   let parsed;
   try{
@@ -843,21 +843,32 @@ async function analyzeWithClaude(base64, mediaType, subject){
   }catch(e){
     throw new Error("Server returned an unreadable response");
   }
-
+ 
   if(!response.ok){
-    throw new Error(parsed.error || "Analysis request failed");
+    let msg = parsed.error || "Analysis request failed";
+    if(parsed.detail){
+      // Try to surface Google's specific error message if present
+      try{
+        const detailParsed = typeof parsed.detail === 'string' ? JSON.parse(parsed.detail) : parsed.detail;
+        const inner = detailParsed && detailParsed.error && detailParsed.error.message;
+        if(inner) msg = inner;
+      }catch(e){
+        // detail wasn't JSON, ignore
+      }
+    }
+    throw new Error(msg);
   }
   return parsed;
 }
-
+ 
 function renderResults(result){
   document.getElementById('summaryText').textContent = result.overallSummary || "Here's what we found.";
   const gaps = result.gaps || [];
   const strengths = result.strengths || [];
-
+ 
   document.getElementById('statGaps').textContent = gaps.length;
   document.getElementById('statStrengths').textContent = strengths.length;
-
+ 
   const gapsList = document.getElementById('gapsList');
   if(gaps.length === 0){
     gapsList.innerHTML = `<div class="strength-card">No clear concept gaps were detected from this photo — try a clearer or more complete image if this seems off.</div>`;
@@ -874,7 +885,7 @@ function renderResults(result){
       </div>
     `).join('');
   }
-
+ 
   const strengthsList = document.getElementById('strengthsList');
   if(strengths.length === 0){
     strengthsList.innerHTML = `<div class="strength-card">Keep practicing — strengths will show up here once we spot a clear pattern.</div>`;
@@ -887,7 +898,7 @@ function renderResults(result){
     `).join('');
   }
 }
-
+ 
 function escapeHtml(str){
   const div = document.createElement('div');
   div.textContent = str;
@@ -896,3 +907,4 @@ function escapeHtml(str){
 </script>
 </body>
 </html>
+ 
