@@ -50,7 +50,16 @@ Strengths: ${strengthsList || 'none noted'}`;
 ${contextBlock}`;
 
   // Convert our simple {role, text} messages into Gemini's format.
-  const contents = messages.map(m => ({
+  // Gemini requires the conversation to start with a 'user' turn, so drop
+  // any leading assistant messages (like our opening greeting bubble).
+  const firstUserIndex = messages.findIndex(m => m.role === 'user');
+  const trimmedMessages = firstUserIndex === -1 ? [] : messages.slice(firstUserIndex);
+
+  if (trimmedMessages.length === 0) {
+    return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reply: "I'm here whenever you're ready to ask something!" }) };
+  }
+
+  const contents = trimmedMessages.map(m => ({
     role: m.role === 'assistant' ? 'model' : 'user',
     parts: [{ text: m.text }]
   }));
